@@ -15,7 +15,6 @@ function MyNFT(){
         tokenID: "877x0392131231231"
     }
     const [listItem, setListItem] = useState([initialItem]);
-    setListItem([initialItem]);
    
 
     

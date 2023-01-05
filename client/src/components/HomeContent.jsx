@@ -16,7 +16,6 @@ function HomeContent(){
     }
     const [listItem, setListItem] = useState([initialItem]);
 
-   setListItem([initialItem]);
 
     // async function loadNFT() {
 

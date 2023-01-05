@@ -17,7 +17,6 @@ function Detail() {
         tokenID: "877x0392131231231"
     }
     const [item, setItem] = useState(initialItem);
-    console.log(itemId);
     // async function loadNFT() {
 
 
@@ -29,7 +28,7 @@ function Detail() {
     //     loadNFT();
     // }, []);
     const clickBuy = () => {
-        setItem(initialItem);
+
     }
 
     return (

@@ -15,7 +15,7 @@ function ListCards(props) {
                                 name={item.name}
                                 img={item.img}
                                 id={item.tokenID}
-                                address={props.myNFT == true ? item.ownerAddress : item.sellerAddress}
+                                address={props.myNFT === true ? item.ownerAddress : item.sellerAddress}
                                 myNFT={props.myNFT}
                                 price={item.price}
                             />
