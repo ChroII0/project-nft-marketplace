@@ -42,7 +42,7 @@ function Header() {
 
                     </ul>
                     <div className="text-end">
-                        {isConnectMetamask == false ?
+                        {isConnectMetamask === false ?
                             (<button type="button" className="btn btn-light btn-lg" onClick={connectWallet}>
                                 Connect Wallet
                             </button>) : (

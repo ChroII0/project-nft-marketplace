@@ -11,7 +11,7 @@ function Card(props) {
                 <div className="card-body">
                     <p className="card-text">Name: <Link to={"/detail/" + props.id}>{props.name}</Link></p>
                     <p className="card-text">Address: {props.address}</p>
-                    { props.myNFT == false && <p className="card-text">Price: {props.price}</p>}
+                    { props.myNFT === false && <p className="card-text">Price: {props.price}</p>}
                     {/* <div className="d-flex justify-content-between align-items-center">
                         <div className="btn-group">
                             <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
