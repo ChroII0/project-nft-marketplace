@@ -28,7 +28,9 @@ function Detail() {
     // useEffect(() => {
     //     loadNFT();
     // }, []);
+    const clickBuy = () => {
 
+    }
 
     return (
         <div className="col-md-12 pt-5 px-3">
@@ -42,7 +44,7 @@ function Detail() {
                     <div className="mb-3 text-muted">owner: {item.ownerAddress}</div>
                     <p className="mb-auto">Detail:<br/>{item.detail}</p>
                     <p className="mb-auto">Attribute:<br/>{item.attribute}</p>
-                    <button type="button" className="btn btn-primary btn-lg">Buy: {item.price}</button>
+                    <button type="button" className="btn btn-primary btn-lg" onClick={clickBuy}>Buy: {item.price}</button>
                 </div>
             </div>
         </div>
