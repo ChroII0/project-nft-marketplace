@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useState } from "react";
 import ListCards from "./ListCards";
 
@@ -16,7 +16,7 @@ function HomeContent(){
     }
     const [listItem, setListItem] = useState([initialItem]);
 
-   
+   setListItem([initialItem]);
 
     // async function loadNFT() {
 

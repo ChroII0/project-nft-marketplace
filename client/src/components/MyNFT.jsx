@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useState } from "react";
 import ListCards from "./ListCards";
 
@@ -15,7 +15,7 @@ function MyNFT(){
         tokenID: "877x0392131231231"
     }
     const [listItem, setListItem] = useState([initialItem]);
-
+    setListItem([initialItem]);
    
 
     
