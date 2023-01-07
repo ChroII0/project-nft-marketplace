@@ -1,5 +1,5 @@
-export const addressSaturnBox = "0xfCbB73fdF0164462991F53FD176c2a7C0C56c2aF";
-export const addressSaturnMKP = "0xA308158C74236f7De1209aAd973D5152a7c9dFa7";
+export const addressSaturnBox = "0xbF7C0c5b7238c5B6652D206EC55989Fbf06de201";
+export const addressSaturnMKP = "0x7Cd7162739903507531BB8F6e26C98d1B4fC2Ef5";
 
 export const abiSaturnBox = require('./abi/abiSaturnBox.json');
 export const abiSaturnMKP = require('./abi/abiSaturnMKP.json'); 
