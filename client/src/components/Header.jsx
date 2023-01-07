@@ -24,7 +24,7 @@ function Header() {
             setBalance(balance);
         }
         fetchWallet();
-    },[]);
+    },[balance]);
     return (
         <header className="p-3 text-bg-dark">
             <div className="container">
