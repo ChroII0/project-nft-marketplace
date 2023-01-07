@@ -9,7 +9,7 @@ export const connectWallet = async () => {
             return true;
         }
     } else {
-        alert("install metamask extension!!")
+        alert("pls install metamask extension!!")
     }
 };
 
@@ -25,7 +25,7 @@ export const getCurrentWalletConnected = async () => {
             balance: ethers.utils.formatEther(balance)
         }
     } else {
-        alert("install metamask extension!!")
+        alert("pls install metamask extension!!")
     }
 };
 

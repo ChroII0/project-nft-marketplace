@@ -7,8 +7,6 @@ function Header() {
     const [walletAddress, setWallet] = useState("");
     const [balance, setBalance] = useState(null);
     const [status, setStatus] = useState(false);
-    const [message, setMessage] = useState("No connection to the network.");
-    const [newMessage, setNewMessage] = useState("");
 
     const connect_wallet = async () => {
         const status = await connectWallet();
@@ -38,7 +36,7 @@ function Header() {
                         <li><Link to="/mynft" className="nav-link px-2 text-white">Market Place</Link></li>
                         <li><Link to="/mynft" className="nav-link px-2 text-white">My Listed NFTs</Link></li>
                         <li><Link to="/mynft" className="nav-link px-2 text-white">My NFTs</Link></li>
-
+                        <li><Link to="/nftcase" className="nav-link px-2 text-white">NFT Case</Link></li>
                     </ul>
                     <div>
                         {(walletAddress === "") ?
