@@ -1,11 +1,11 @@
 import { ethers } from "ethers";
+import { addressSaturnBox, addressSaturnMKP, abiSaturnBox, abiSaturnMKP } from './contract.js'
 
 
 export const connectWallet = async () => {
     if (window.ethereum) {
         const res = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        if (res[0])
-        {
+        if (res[0]) {
             return true;
         }
     } else {
@@ -29,3 +29,293 @@ export const getCurrentWalletConnected = async () => {
     }
 };
 
+// Contract SaturnBox
+export const getCatalog = async () => {
+    /* Response:
+        array of [_boxType,_img,_price,_commonWeight,_rareWeight,_eliteWeight,_epicWeight,_legendaryWeight,_mythicalWeight]
+        - _boxType: int
+        - _img: string (url image of the Box)
+        - _price: int
+        - _commonWeight: int (exam: if you buy this box you will have ( 30% <=> {_commonWeight}% )chance to get common Agent)
+        - _rareWeight: the same as _commonWeight
+        - _eliteWeight: the same as _commonWeight
+        - _epicWeight: the same as _commonWeight
+        - _legendaryWeight: the same as _commonWeight
+        - _mythicalWeight: the same as _commonWeight
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
+    let catalogs = contract.getCatalog();
+    return catalogs
+}
+
+export const getOpenBoxPrice = async () => {
+    /* Response:
+        price: int
+        -> this is the price that you have to pay when you want to open a Box
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
+    let openBoxPrice = contract.getOpenBoxPrice();
+    return openBoxPrice
+}
+
+export const purchaseBox = async (boxType, price) => {
+    /* args
+        - boxType: int - box type you want to buy
+        - price: int - the price that admin requested
+     */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
+    await contract.purchaseBox(boxType, { value: ethers.utils.parseEther(price) });
+    // TODO: listen event to show UX
+}
+
+export const getBoxs = async () => {
+    /* Response:
+        array of [_id,_targetBLock,_price,_box_type,_is_opened,_owner_by,_imgURI]
+        - _id: int- this is the tokenId (boxId) of the Box 
+        - _targetBLock: int - block number that you can open
+        - _price: price of the box
+        - _box_type: int (1,2,3)
+        - _is_opened: bool 
+        - _owner_by: string - address of the owner
+        - _imgURI: string url img of the box
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
+    let myBoxs = contract.getMyBox();
+    return myBoxs
+}
+
+export const openBox = async (boxId, openBoxFee) => {
+    /* args
+        - boxId: int - tokenId you want to open
+        - openBoxFee: int - the fee you have to pay for admin when requesting this (can get by function "getOpenBoxPrice")
+     */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
+    await contract.openBox(boxId, { value: ethers.utils.parseEther(openBoxFee) });
+    // TODO: listen event to show UX
+}
+
+
+
+// Contract SaturnMKP
+
+export const getListingPrice = async () => {
+    /* Response:
+        price: int
+        -> this is the price that you have to pay when you want to list an NFT to marketplace
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let listingPrice = contract.getListingPrice();
+    return listingPrice;
+}
+export const getOnChainPrice = async () => {
+    /* Response:
+        price: int
+        -> this is the price that you have to pay when you want to put your NFT onchain
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let onChainPrice = contract.getOnChainPrice();
+    return onChainPrice;
+}
+export const doRequestOnChain = async (nftId, onChainFee) => {
+    /* args
+        - nftId: int - tokenId you want to put on chain
+        - onChainFee: int - the fee you have to pay for admin when requesting this (can get by function "getOnChainPrice")
+     */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    await contract.doRequestOnChain(nftId, { value: ethers.utils.parseEther(onChainFee) });
+    // TODO: listen event to show UX
+}
+
+export const getOffChainPrice = async () => {
+    /* Response:
+        price: int
+        -> this is the price that you have to pay when you want to put your NFT offchain
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let offChainPrice = contract.getOffChainPrice();
+    return offChainPrice;
+}
+
+export const isOnChain = async (nftId) => {
+    /* args
+        - nftId: int - tokenId you want to check
+    */
+    /* Response:
+        true/false: bool
+        -> to check if your NFT is on the chain or not
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let _isOnChain = contract.isOnChain(nftId);
+    return _isOnChain;
+}
+
+
+export const sellNFT = async (nftId, expectPrice, listingPrice) => {
+    /* args
+        - nftId: int - tokenId you want to list on marketplace
+        - expectPrice: int - the price that you want to sell
+        - listingPrice: int - the fee you have to pay for admin when requesting this (can get by function "getListingPrice")
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    await contract.sellNFT(nftId, expectPrice, { value: ethers.utils.parseEther(listingPrice) });
+    // TODO: listen event to show UX
+}
+
+export const purchaseNFT = async (nftId, NFTPrice) => {
+    /* args
+        - nftId: int - tokenId you want to buy
+        - NFTPrice: int - the price that the seller requested
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    await contract.purchaseNFT(nftId, { value: ethers.utils.parseEther(NFTPrice) });
+    // TODO: listen event to show UX
+}
+
+export const doRequestOffChain = async (nftId, offChainFee) => {
+    /* args
+        - nftId: int - tokenId you want to put off chain
+        - offChainFee: int - the fee you have to pay for admin when requesting this (can get by function "getOffChainPrice")
+     */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    await contract.offChain(nftId, { value: ethers.utils.parseEther(offChainFee) })
+    // TODO: listen event to show UX
+}
+
+export const getMyNFTs = async () => {
+    /* Response:
+        array of [_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName]
+        - _tokenURIDetail: is an array, the struct is 
+                    - tokenId: int  - this is nftId
+                    - agentId: int - this is type of Agent
+                    - isOnchain: int 1 or 0, 1 is true and 0 is false
+                    - baseRarity: int 0:common, 1:rare, 2:elite, 3:epic, 4:legendary, 5:mythical
+                    - rarity: int - is baseRarity but in the future this will be change to higher level of rarity lik epic, legendary or or something else
+                    - level: int - maximum: 500
+                    - damage: int - maximum: 1000
+                    - hp: int - maximum: 4000
+                    - evasion: int - maximum: 4000
+                    - armor: int - maximum: 1000
+                    - combo: int - maximum: 1000
+                    - precision: int - maximum: 4000
+                    - accuracy: int - maximum: 4000
+                    - counter: int - maximum: 1000
+                    - reversal: int - maximum: 1000
+                    - lock: int - maximum: 1000
+                    - disarm: int - maximum: 1000
+                    - speed: int - maximum: 1000
+        - _tokenId: int  - this is nftId
+        - _seller: string - this is the address of the seller who own this token and want to sell it
+        - _owner: string - this is the address of the owner (in case of selling, the owner is the contract)
+        - _price: int price of token the seller is requesting
+        - _isSelling: bool - is listing on marketplace or not
+        - _tokenImg: string - url image of token (Agent)
+        - _tokenName: string - name of token (Agent)
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let myNFTs = contract.getMyItems();
+    return myNFTs;
+}
+
+
+export const getMyListedNFTs = async () => {
+    /* Response:
+        array of [_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName]
+        - _tokenURIDetail: is an array, the struct is 
+                    - tokenId: int  - this is nftId
+                    - agentId: int - this is type of Agent
+                    - isOnchain: int 1 or 0, 1 is true and 0 is false
+                    - baseRarity: int 0:common, 1:rare, 2:elite, 3:epic, 4:legendary, 5:mythical
+                    - rarity: int - is baseRarity but in the future this will be change to higher level of rarity lik epic, legendary or or something else
+                    - level: int - maximum: 500
+                    - damage: int - maximum: 1000
+                    - hp: int - maximum: 4000
+                    - evasion: int - maximum: 4000
+                    - armor: int - maximum: 1000
+                    - combo: int - maximum: 1000
+                    - precision: int - maximum: 4000
+                    - accuracy: int - maximum: 4000
+                    - counter: int - maximum: 1000
+                    - reversal: int - maximum: 1000
+                    - lock: int - maximum: 1000
+                    - disarm: int - maximum: 1000
+                    - speed: int - maximum: 1000
+        - _tokenId: int  - this is nftId
+        - _seller: string - this is the address of the seller who own this token and want to sell it
+        - _owner: string - this is the address of the owner (in case of selling, the owner is the contract)
+        - _price: int price of token the seller is requesting
+        - _isSelling: bool - is listing on marketplace or not
+        - _tokenImg: string - url image of token (Agent)
+        - _tokenName: string - name of token (Agent)
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let myListedNFTs = contract.getMyListedItems();
+    return myListedNFTs;
+}
+
+
+export const getMKPListedNFTs = async () => {
+    /* Response:
+        array of [_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName]
+        - _tokenURIDetail: is an array, the struct is 
+                    - tokenId: int  - this is nftId
+                    - agentId: int - this is type of Agent
+                    - isOnchain: int 1 or 0, 1 is true and 0 is false
+                    - baseRarity: int 0:common, 1:rare, 2:elite, 3:epic, 4:legendary, 5:mythical
+                    - rarity: int - is baseRarity but in the future this will be change to higher level of rarity lik epic, legendary or or something else
+                    - level: int - maximum: 500
+                    - damage: int - maximum: 1000
+                    - hp: int - maximum: 4000
+                    - evasion: int - maximum: 4000
+                    - armor: int - maximum: 1000
+                    - combo: int - maximum: 1000
+                    - precision: int - maximum: 4000
+                    - accuracy: int - maximum: 4000
+                    - counter: int - maximum: 1000
+                    - reversal: int - maximum: 1000
+                    - lock: int - maximum: 1000
+                    - disarm: int - maximum: 1000
+                    - speed: int - maximum: 1000
+        - _tokenId: int  - this is nftId
+        - _seller: string - this is the address of the seller who own this token and want to sell it
+        - _owner: string - this is the address of the owner (in case of selling, the owner is the contract)
+        - _price: int price of token the seller is requesting
+        - _isSelling: bool - is listing on marketplace or not
+        - _tokenImg: string - url image of token (Agent)
+        - _tokenName: string - name of token (Agent)
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let mkpListedNFTs = contract.getListedItems();
+    return mkpListedNFTs;
+}
