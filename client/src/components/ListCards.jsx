@@ -19,6 +19,8 @@ function ListCards(props) {
                                 address={props.myNFT === true ? item._owner : item._seller}
                                 myNFT={props.myNFT}
                                 price={item._price}
+                                isOnChain={item._tokenURIDetail[0].isOnchain}
+                                rarity={item._tokenURIDetail[0].rarity}
                             />
                         );
                     })}

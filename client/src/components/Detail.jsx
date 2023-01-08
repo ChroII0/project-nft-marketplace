@@ -17,16 +17,7 @@ function Detail() {
         _tokenURIDetail: []
     }
     const [item, setItem] = useState(initialItem);
-    // async function loadNFT() {
-
-
-
-    //     setItem();
-    // }
-
-    // useEffect(() => {
-    //     loadNFT();
-    // }, []);
+    
     const clickBuy = () => {
 
     }

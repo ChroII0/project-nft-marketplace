@@ -73,7 +73,7 @@ export const purchaseBox = async (boxType, price) => {
     const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
     await contract.purchaseBox(boxType, { value: price });
     // Listen event to show UX
-    listenDoPurchaseBox(address);
+    listenDoPurchaseBox({ addressExpect: address });
 };
 
 export const getBoxs = async () => {
@@ -105,7 +105,7 @@ export const openBox = async (boxId, openBoxFee) => {
     const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
     await contract.openBox(boxId, { value: openBoxFee });
     // Listen event to show UX
-    listenMintToken(address);
+    listenMintToken({ addressExpect: address });
 };
 
 
@@ -145,7 +145,7 @@ export const doRequestOnChain = async (nftId, onChainFee) => {
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
     await contract.doRequestOnChain(nftId, { value: ethers.utils.parseEther(onChainFee) });
     // Listen event to show UX
-    listenToOnChain(address);
+    listenToOnChain({ addressExpect: address });
 };
 
 export const getOffChainPrice = async () => {
@@ -188,7 +188,7 @@ export const sellNFT = async (nftId, expectPrice, listingPrice) => {
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
     await contract.sellNFT(nftId, expectPrice, { value: ethers.utils.parseEther(listingPrice) });
     // Listen event to show UX
-    listenDoSellNFT(address);
+    listenDoSellNFT({ addressExpect: address });
 };
 
 export const purchaseNFT = async (nftId, NFTPrice) => {
@@ -202,7 +202,7 @@ export const purchaseNFT = async (nftId, NFTPrice) => {
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
     await contract.purchaseNFT(nftId, { value: NFTPrice });
     // Listen event to show UX
-    listenDoPurchaseNFT(address);
+    listenDoPurchaseNFT({ addressExpect: address });
 };
 
 export const doRequestOffChain = async (nftId, offChainFee) => {
@@ -216,7 +216,7 @@ export const doRequestOffChain = async (nftId, offChainFee) => {
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
     await contract.offChain(nftId, { value: ethers.utils.parseEther(offChainFee) })
     // Listen event to show UX
-    listenToOffChain(address);
+    listenToOffChain({ addressExpect: address });
 };
 
 export const getMyNFTs = async () => {
@@ -337,7 +337,7 @@ export const getMKPListedNFTs = async () => {
 
 ////////////////////////////////  LISTEN EVENT ////////////////////////////////////////
 //SaturnMKP
-export const listenRequestOnChain = async (addressExpect = null) => {
+export const listenRequestOnChain = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     contract.on("requestOnChain", (requester, tokenId) => {
@@ -352,12 +352,11 @@ export const listenRequestOnChain = async (addressExpect = null) => {
             console.log("Event requestOnChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
 
-export const listenToOffChain = async (addressExpect = null) => {
+export const listenToOffChain = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     contract.on("toOffChain", (requester, tokenId) => {
@@ -372,12 +371,11 @@ export const listenToOffChain = async (addressExpect = null) => {
             console.log("Event toOffChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
 
-export const listenToOnChain = async (addressExpect = null) => {
+export const listenToOnChain = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     contract.on("toOnChain", (requester, tokenId) => {
@@ -392,12 +390,11 @@ export const listenToOnChain = async (addressExpect = null) => {
             console.log("Event toOnChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
 
-export const listenDoSellNFT = async (addressExpect = null) => {
+export const listenDoSellNFT = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     contract.on("doSellNFT", (requester, tokenId, price) => {
@@ -413,12 +410,12 @@ export const listenDoSellNFT = async (addressExpect = null) => {
             console.log("Event doSellNFT");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
+            console.log(price);
         }
     })
 }
 
-export const listenDoPurchaseNFT = async (addressExpect = null) => {
+export const listenDoPurchaseNFT = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     contract.on("doPurchaseNFT", (requester, tokenId) => {
@@ -433,12 +430,11 @@ export const listenDoPurchaseNFT = async (addressExpect = null) => {
             console.log("Event doPurchaseNFT");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
 
-export const listenMintToken = async (addressExpect = null) => {
+export const listenMintToken = async ({ addressExpect = null }) => {
     /* Response:
         an object (_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName])
         - _tokenURIDetail: is an array, the struct is 
@@ -481,15 +477,14 @@ export const listenMintToken = async (addressExpect = null) => {
             // TODO: handle event
             console.log("Event mintToken");
             console.log(requester);
-            console.log(tokenId);
-            console.log(typeBox);
+            console.log(tokenDetail);
         }
     })
 }
 
 
 //SaturnBox
-export const listenDoPurchaseBox = async (addressExpect = null) => {
+export const listenDoPurchaseBox = async ({ addressExpect = null }) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, provider);
     contract.on("doPurchaseBox", (requester, tokenId, typeBox) => {
