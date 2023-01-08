@@ -47,16 +47,19 @@ function MyListedNFTs() {
         }
         fetchMyListedNFTs();
     }, []);
-    // const clickBuy = async (boxType) => {
-    //     // console.log(boxType, ethers.utils.formatUnits(listItem[boxType-1]._price, "wei"));
-    //     await purchaseBox(boxType, ethers.utils.formatUnits(listItem[boxType-1]._price, "wei"));
-    // };
+    const clickWithDraw = async (id) => {
+        // const withDrawFee = await getPriceWithDraw();
+        // await withDraw(id, withDrawFee);
+    };
+
     return(
         <ListCards
             listItem={listItem}
             title={"My Listed NFTs"}
-            myNFT={true}
+            myNFT={false}
+            myListedNFTs={true}
             isMKP={false}
+            withDraw={clickWithDraw}
         />
     );
 

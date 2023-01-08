@@ -39,12 +39,19 @@ function Card(props) {
                     {props.myNFT === false ?
                         (
                             <>
-                                <p className="card-text"><strong>Price:</strong> {props.price} gwei</p>
+                                {props.myListedNFTs !== true && <p className="card-text"><strong>Price:</strong> {props.price} gwei</p>}
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
-                                        <Link to={"/detail/" + props.id}>
-                                            <button className="btn btn-sm btn-outline-primary"><strong>Buy</strong></button>
-                                        </Link>
+                                        {
+                                            props.myListedNFTs !== true
+                                                ? (
+                                                    <Link to={"/detail/" + props.id}>
+                                                        <button className="btn btn-sm btn-outline-primary"><strong>Buy</strong></button>
+                                                    </Link>
+                                                ) : (
+                                                    <button className="btn btn-sm btn-outline-primary" onClick={() => props.withDraw(props.id)}><strong>Withdraw</strong></button>
+                                                )
+                                        }
                                     </div>
                                 </div>
                             </>

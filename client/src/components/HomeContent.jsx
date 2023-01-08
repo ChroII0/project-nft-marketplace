@@ -17,19 +17,9 @@ function HomeContent() {
     const [listItem, setListItem] = useState([initialItem, initialItem, initialItem]);
 
 
-    // async function loadNFT() {
-
-
-
-    //     setListItem();
-    // }
-
-    // useEffect(() => {
-    //     loadNFT();
-    // }, []);
 
     return (
-        <h1 style={{"padding":""}}>Home Page</h1>
+        <h1 style={{"padding":"100px"}}>Home Page</h1>
     );
 
 }
