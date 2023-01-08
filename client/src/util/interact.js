@@ -123,6 +123,19 @@ export const getListingPrice = async () => {
     let listingPrice = contract.getListingPrice();
     return listingPrice;
 };
+
+export const getWithdrawPrice = async () => {
+    /* Response:
+        price: int
+        -> this is the price that you have to pay when you want to list an NFT to marketplace
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let withdrawPrice = contract.getWithdrawPrice();
+    return withdrawPrice;
+};
+
 export const getOnChainPrice = async () => {
     /* Response:
         price: int
@@ -203,6 +216,20 @@ export const purchaseNFT = async (nftId, NFTPrice) => {
     await contract.purchaseNFT(nftId, { value: NFTPrice });
     // Listen event to show UX
     listenDoPurchaseNFT({ addressExpect: address });
+};
+
+export const withdrawNFT = async (nftId, withdrawFee) => {
+    /* args 
+        - nftId: int - tokenId you want to buy
+        - withdrawFee: int - the price that the admin request
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    await contract.withdrawNFT(nftId, { value: withdrawFee });
+    // Listen event to show UX
+    listenDoWithdrawNFT({ addressExpect: address });
 };
 
 export const doRequestOffChain = async (nftId, offChainFee) => {
@@ -507,6 +534,25 @@ export const listenDoPurchaseNFT = async ({ addressExpect = null }) => {
         else {
             // TODO: handle event
             console.log("Event doPurchaseNFT");
+            console.log(requester);
+            console.log(tokenId);
+        }
+    })
+}
+
+export const listenDoWithdrawNFT = async ({ addressExpect = null }) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
+    contract.on("doWithdrawNFT", (requester, tokenId) => {
+        if (addressExpect != null && requester == addressExpect) {
+            // TODO: handle event
+            console.log("Event doWithdrawNFT");
+            console.log(requester);
+            console.log(tokenId);
+        }
+        else {
+            // TODO: handle event
+            console.log("Event doWithdrawNFT");
             console.log(requester);
             console.log(tokenId);
         }

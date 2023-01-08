@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getMyListedNFTs } from "../util/interact";
 import ListCards from "./ListCards";
 import { formatRes } from "../util/func";
+import { withdrawNFT } from "../util/interact";
+import { getWithdrawPrice } from "../util/interact";
 
 
 function MyListedNFTs() {
@@ -43,13 +45,13 @@ function MyListedNFTs() {
         async function fetchMyListedNFTs() {
             const res = await getMyListedNFTs();
             setListItem(formatRes(res));
-            console.log(res);
         }
         fetchMyListedNFTs();
     }, []);
     const clickWithDraw = async (id) => {
-        // const withDrawFee = await getPriceWithDraw();
-        // await withDraw(id, withDrawFee);
+        const withDrawFee = await getWithdrawPrice();
+        console.log(withDrawFee);
+        // await withdrawNFT(id, withDrawFee);
     };
 
     return(
