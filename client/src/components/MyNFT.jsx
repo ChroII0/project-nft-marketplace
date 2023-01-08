@@ -68,6 +68,9 @@ function MyNFT() {
         if (canOpen) {
             await openBox(id, ethers.utils.formatUnits(openBoxFee, "wei"));
         }
+        else{
+            alert("can not open box!");
+        }
     }
 
 

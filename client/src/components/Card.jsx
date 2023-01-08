@@ -24,7 +24,7 @@ function Card(props) {
             <div className="card shadow-sm border-3" style={{ "border-color": borderColor[props.rarity] }}>
                 <img className="card-img-top" width="100%" height="100%" src={props.img} />
                 <div className="card-body">
-                    <p className="card-text"><strong>Name:</strong> <Link className="text-black text-decoration-none" to={"/detail/" + props.id}>{props.name}</Link></p>
+                    <p className="card-text"><strong>Name:</strong> <Link className="text-primary text-decoration-none" to={"/detail/" + props.id}>{props.name}</Link></p>
                     <p className="card-text"><strong>TokenID:</strong> {props.id}</p>
                     <p className="card-text"><strong>Address:</strong> {props.address}</p>
                     <div className="d-flex justify-content-between align-items-center">
