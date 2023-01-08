@@ -24,6 +24,7 @@ function ListCards(props) {
                                 isSelling={item._isSelling}
                                 rarity={item._tokenURIDetail[0].rarity}
                                 sellNFT={props.sellNFT}
+                                onOrOffChain={props.onOrOffChain}
                             />
                         );
                     })}

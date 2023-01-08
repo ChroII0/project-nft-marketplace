@@ -21,7 +21,7 @@ function Card(props) {
         "Mythical"
     ]
     const [expectPrice, setExpectPrice] = useState("");
-    const handleChangeExpectPrice = (e) =>{
+    const handleChangeExpectPrice = (e) => {
         setExpectPrice(e.target.value);
     }
     return (
@@ -48,21 +48,30 @@ function Card(props) {
                                     </div>
                                 </div>
                             </>
-                        ) : ((props.isOnChain === 1 && props.isSelling === false) &&
+                        ) : ((props.isOnChain === 1) ?
                             (
                                 <>
                                     <div className="d-flex justify-content-between align-items-center">
                                         <div className="btn-group">
                                             <button className="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><strong>Auction</strong></button>
+                                            <button className="btn btn-sm btn-outline-primary" onClick={() => props.onOrOffChain(props.id)}><strong>OffChain</strong></button>
                                         </div>
                                     </div>
                                     <div className="collapse" id="collapseExample">
                                         <div className="card card-body">
-                                            <input class="form-control" type="number" onChange={handleChangeExpectPrice} placeholder="pls use gwei" readonly/>
-                                            <button className="btn btn-sm btn-outline-primary" onClick={() =>{props.sellNFT(props.id, expectPrice)}}><strong>Sell</strong></button>
+                                            <input class="form-control" type="number" onChange={handleChangeExpectPrice} placeholder="pls use gwei" readonly />
+                                            <button className="btn btn-sm btn-outline-primary" onClick={() => { props.sellNFT(props.id, expectPrice) }}><strong>Sell</strong></button>
                                         </div>
                                     </div>
 
+                                </>
+                            ) : (
+                                <>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <div className="btn-group">
+                                            <button className="btn btn-sm btn-outline-primary" onClick={() => props.onOrOffChain(props.id)}><strong>OnChain</strong></button>
+                                        </div>
+                                    </div>
                                 </>
                             )
                         )}
