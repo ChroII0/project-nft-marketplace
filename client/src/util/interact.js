@@ -352,7 +352,6 @@ export const listenRequestOnChain = async (addressExpect = null) => {
             console.log("Event requestOnChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
@@ -372,7 +371,6 @@ export const listenToOffChain = async (addressExpect = null) => {
             console.log("Event toOffChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
@@ -392,7 +390,6 @@ export const listenToOnChain = async (addressExpect = null) => {
             console.log("Event toOnChain");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
@@ -413,7 +410,7 @@ export const listenDoSellNFT = async (addressExpect = null) => {
             console.log("Event doSellNFT");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
+            console.log(price);
         }
     })
 }
@@ -433,7 +430,6 @@ export const listenDoPurchaseNFT = async (addressExpect = null) => {
             console.log("Event doPurchaseNFT");
             console.log(requester);
             console.log(tokenId);
-            console.log(typeBox);
         }
     })
 }
@@ -481,8 +477,7 @@ export const listenMintToken = async (addressExpect = null) => {
             // TODO: handle event
             console.log("Event mintToken");
             console.log(requester);
-            console.log(tokenId);
-            console.log(typeBox);
+            console.log(tokenDetail);
         }
     })
 }
