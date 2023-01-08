@@ -1,46 +1,65 @@
 // import { useEffect } from "react";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { getBoxs } from "../util/interact";
+import { getBoxs, getMyNFTs, getOpenBoxPrice, openBox } from "../util/interact";
 import ListCards from "./ListCards";
+import ListBoxs from "./ListBoxs";
+import { formatRes } from "../util/func";
 
 
 
-function MyNFT(){
+function MyNFT() {
 
     const initialItem = {
-        name: "test_name",
-        sellerAddress: "seller_address",
-        ownerAddress: "onwer_address",
-        price: 1000,
-        img: "http://www.w3.org/2000/svg",
-        tokenID: "877x0392131231231"
+        _tokenName: "test_name",
+        _tokenId: 1,
+        _tokenImg: "http://www.w3.org/2000/svg",
+        _seller: "seller_address",
+        _owner: "onwer_address",
+        _price: 1000,
+        _isSelling: true,
+        _tokenURIDetail: []
     }
-    const [listItem, setListItem] = useState([initialItem]);
-   
+    const [listNFTs, setListNFTs] = useState([initialItem]);
+    const [listBoxs, setListBoxs] = useState([]);
+
+
     useEffect(() => {
         async function fetchMyBoxs() {
             const res = await getBoxs();
-            console.log(res);
+            setListBoxs(formatRes(res));
         }
         fetchMyBoxs();
     }, []);
-    
-    // async function loadNFT() {
 
+    useEffect(() => {
+        async function fetchMyNFTs() {
+            const res = await getMyNFTs();
+            setListNFTs(formatRes(res));
+        }
+        fetchMyNFTs();
+    }, []);
 
+    const clickOpen = async (id) => {
+        const openBoxFee = await getOpenBoxPrice();
+        await openBox(id, ethers.utils.formatUnits(openBoxFee, "wei"));
+    }
 
-    //     setListItem();
-    // }
+    return (
+        <>
+            <ListCards
+                listItem={listNFTs}
+                myNFT={true}
+                title={"My NFTs"}
+            />
+            <ListBoxs
+                listItem={listBoxs}
+                myNFT={true}
+                title={"My Boxs"}
+                clickOpen={clickOpen}
+            />
+        </>
 
-    // useEffect(() => {
-    //     loadNFT();
-    // }, []);
-
-    return(
-        <ListCards
-            listItem={listItem}
-            myNFT={true}
-        />
     );
 
 }

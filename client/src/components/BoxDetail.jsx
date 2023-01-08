@@ -10,12 +10,12 @@ function BoxDetail(props) {
 
     const data = [
         ["Task", "Weight"],
-        ["Common", parseInt(props.commonWeight)],
-        ["Elite", parseInt(props.eliteWeight)],
-        ["Epic", parseInt(props.epicWeight)],
-        ["Legendary", parseInt(props.legendaryWeight)],
-        ["Mythical", parseInt(props.mythicalWeight)],
-        ["Rare", parseInt(props.rareWeight)],
+        ["Common", props.commonWeight],
+        ["Elite", props.eliteWeight],
+        ["Epic", props.epicWeight],
+        ["Legendary", props.legendaryWeight],
+        ["Mythical", props.mythicalWeight],
+        ["Rare", props.rareWeight],
     ];
     const options = {
         is3D: false,
