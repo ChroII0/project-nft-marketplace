@@ -4,7 +4,7 @@ import ListCards from "./ListCards";
 
 
 
-function HomeContent(){
+function HomeContent() {
 
     const initialItem = {
         name: "test_name",
@@ -14,7 +14,7 @@ function HomeContent(){
         img: "http://www.w3.org/2000/svg",
         tokenID: "877x0392131231231"
     }
-    const [listItem, setListItem] = useState([initialItem,initialItem,initialItem]);
+    const [listItem, setListItem] = useState([initialItem, initialItem, initialItem]);
 
 
     // async function loadNFT() {
@@ -28,11 +28,8 @@ function HomeContent(){
     //     loadNFT();
     // }, []);
 
-    return(
-        <ListCards
-            listItem={listItem}
-            myNFT={false}
-        />
+    return (
+        <h1 style={{"padding":""}}>Home Page</h1>
     );
 
 }

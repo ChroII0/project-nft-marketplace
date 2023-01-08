@@ -186,7 +186,7 @@ export const sellNFT = async (nftId, expectPrice, listingPrice) => {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
-    await contract.sellNFT(nftId, expectPrice, { value: ethers.utils.parseEther(listingPrice) });
+    await contract.sellNFT(nftId, expectPrice, { value: listingPrice });
     // Listen event to show UX
     listenDoSellNFT({ addressExpect: address });
 };

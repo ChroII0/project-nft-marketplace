@@ -10,14 +10,16 @@ import MyNFT from './components/MyNFT';
 import Detail from './components/Detail';
 import NFTCase from './components/NFTCase';
 import MarketPlace from './components/MarketPlace';
+import MyListedNFTs from './components/MyListedNFTs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="" element={<MyNFT />} />
-        <Route path="mkp" element={<MyNFT />} />
+        <Route path="" element={<HomeContent />} />
+        <Route path="mkp" element={<MarketPlace />} />
+        <Route path="mylistednfts" element={<MyListedNFTs />} />
         <Route path="mynft" element={<MyNFT />} />
         <Route path="nftcase" element={<NFTCase />} />
         <Route path="detail/:itemId" element={<Detail />} />

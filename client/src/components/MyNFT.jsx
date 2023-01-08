@@ -6,6 +6,8 @@ import ListCards from "./ListCards";
 import ListBoxs from "./ListBoxs";
 import { formatRes } from "../util/func";
 import { canOpenBox } from "../util/interact";
+import { getListingPrice } from "../util/interact";
+import { sellNFT } from "../util/interact";
 
 
 function MyNFT() {
@@ -60,7 +62,6 @@ function MyNFT() {
             setListNFTs(formatRes(res));
         }
         fetchMyNFTs();
-        console.log(listNFTs);
     }, []);
     const clickOpen = async (id, targetBox) => {
         const openBoxFee = await getOpenBoxPrice();
@@ -72,7 +73,13 @@ function MyNFT() {
             alert("can not open box!");
         }
     }
+    const clickSellNFT = async (id, expectPrice) =>{
+        const ListingPriceRes = await getListingPrice();
+        const ListingPrice = ethers.utils.formatUnits(ListingPriceRes,"wei");
+        const newExpectPrice = expectPrice*1000000000;
+        await sellNFT(id,newExpectPrice, ListingPrice);
 
+    }
 
     return (
         <>
@@ -80,6 +87,7 @@ function MyNFT() {
                 listItem={listNFTs}
                 myNFT={true}
                 title={"My NFTs"}
+                sellNFT={clickSellNFT}
             />
             <ListBoxs
                 listItem={listBoxs}

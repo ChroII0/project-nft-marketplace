@@ -93,6 +93,8 @@ function Detail() {
 
     return (
         <div className="col-md-12 pt-5 px-3">
+            <h2 className="pb-2">Detail NFT</h2>
+
             <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div className="col-auto d-none d-lg-block">
                     <img className="card-img-top" width="600px" height="600px" src={item._tokenImg} />
@@ -122,9 +124,9 @@ function Detail() {
                         )
                     })
                     }
-                    {Cookies.get("walletAddress") !== item._owner.toLowerCase() && (
+                    {Cookies.get("walletAddress") !== (item._isSelling === false ? item._owner.toLowerCase() : item._seller.toLowerCase()) && (
                         <>
-                        <button type="button" className="btn btn-primary mt-3" onClick={clickBuy}>Buy: {ethers.utils.formatUnits(item._price, "gwei")} gwei</button>
+                            <button type="button" className="btn btn-primary mt-3" onClick={clickBuy}>Buy: {ethers.utils.formatUnits(item._price, "gwei")} gwei</button>
                         </>
                     )}
                 </div>

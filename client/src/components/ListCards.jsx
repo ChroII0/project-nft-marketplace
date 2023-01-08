@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 // import { useState } from "react";
 import Card from "./Card";
+import { ethers } from "ethers";
 
 
 function ListCards(props) {
@@ -16,11 +17,13 @@ function ListCards(props) {
                                 name={item._tokenName}
                                 img={item._tokenImg}
                                 id={item._tokenId}
-                                address={props.myNFT === true ? item._owner : item._seller}
+                                address={(props.myNFT === true && props.isMKP !== true) ? item._owner : item._seller}
                                 myNFT={props.myNFT}
-                                price={item._price}
+                                price={ethers.utils.formatUnits(item._price, "gwei")}
                                 isOnChain={item._tokenURIDetail[0].isOnchain}
+                                isSelling={item._isSelling}
                                 rarity={item._tokenURIDetail[0].rarity}
+                                sellNFT={props.sellNFT}
                             />
                         );
                     })}

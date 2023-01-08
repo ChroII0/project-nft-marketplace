@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { getMKPListedNFTs } from "../util/interact";
+import { getMyListedNFTs } from "../util/interact";
 import ListCards from "./ListCards";
 import { formatRes } from "../util/func";
 
 
-function MarKetPlace() {
+function MyListedNFTs() {
     const initialItem = {
         _tokenName: "test_name",
         _tokenId: 1,
         _tokenImg: "http://www.w3.org/2000/svg",
         _seller: "seller_address",
-        _owner: "",
+        _owner: "owner_address",
         _price: 1000,
         _isSelling: true,
         _tokenURIDetail: [
@@ -40,12 +40,12 @@ function MarKetPlace() {
     const [listItem, setListItem] = useState([initialItem]);
 
     useEffect(() => {
-        async function fetchMKP() {
-            const res = await getMKPListedNFTs();
+        async function fetchMyListedNFTs() {
+            const res = await getMyListedNFTs();
             setListItem(formatRes(res));
             console.log(res);
         }
-        fetchMKP();
+        fetchMyListedNFTs();
     }, []);
     // const clickBuy = async (boxType) => {
     //     // console.log(boxType, ethers.utils.formatUnits(listItem[boxType-1]._price, "wei"));
@@ -54,11 +54,11 @@ function MarKetPlace() {
     return(
         <ListCards
             listItem={listItem}
-            title={"Market Place"}
-            myNFT={false}
-            isMKP={true}
+            title={"My Listed NFTs"}
+            myNFT={true}
+            isMKP={false}
         />
     );
 
 }
-export default MarKetPlace;
+export default MyListedNFTs;
