@@ -16,8 +16,8 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="" element={<HomeContent />} />
-        <Route path="mkp" element={<MarketPlace />} />
+        <Route path="" element={<MyNFT />} />
+        <Route path="mkp" element={<MyNFT />} />
         <Route path="mynft" element={<MyNFT />} />
         <Route path="nftcase" element={<NFTCase />} />
         <Route path="detail/:itemId" element={<Detail />} />
