@@ -103,7 +103,7 @@ export const openBox = async (boxId, openBoxFee) => {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
     const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
-    await contract.openBox(boxId, { value: openBoxFee, gasPrice: ethers.utils.parseUnits('2', "gwei") });
+    await contract.openBox(boxId, { value: openBoxFee, gasLimit: 350000 });
     // Listen event to show UX
     listenMintToken({ addressExpect: address });
 };
