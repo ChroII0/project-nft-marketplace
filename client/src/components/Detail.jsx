@@ -7,14 +7,14 @@ function Detail() {
     const { itemId } = useParams();
 
     const initialItem = {
-        name: "test_name",
-        sellerAddress: "seller_address",
-        ownerAddress: "onwer_address",
-        detail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nesciunt recusandae sequi dolores, aspernatur neque? Inventore cupiditate doloremque nulla autem.",
-        attribute: "image sexy girl",
-        price: "test_price",
-        img: "http://www.w3.org/2000/svg",
-        tokenID: "877x0392131231231"
+        _tokenName: "test_name",
+        _tokenId: 1,
+        _tokenImg: "http://www.w3.org/2000/svg",
+        _seller: "seller_address",
+        _owner: "onwer_address",
+        _price: 1000,
+        _isSelling: true,
+        _tokenURIDetail: []
     }
     const [item, setItem] = useState(initialItem);
     // async function loadNFT() {
@@ -39,11 +39,11 @@ function Detail() {
                 </div>
                 <div className="col p-4 d-flex flex-column position-static">
                     <strong className="d-inline-block mb-2 text-success">Item</strong>
-                    <h3 className="mb-0">{item.name}</h3>
-                    <div className="mb-3 text-muted">owner: {item.ownerAddress}</div>
-                    <p className="mb-auto">Detail:<br/>{item.detail}</p>
-                    <p className="mb-auto">Attribute:<br/>{item.attribute}</p>
-                    <button type="button" className="btn btn-primary btn-lg" onClick={clickBuy}>Buy: {item.price}</button>
+                    <h3 className="mb-0">{item._tokenName}</h3>
+                    <div className="mb-3 text-muted">owner: {item._owner}</div>
+                    <p className="mb-auto">Detail:<br/>{}</p>
+                    <p className="mb-auto">Attribute:<br/>{}</p>
+                    {}
                 </div>
             </div>
         </div>

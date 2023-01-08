@@ -100,7 +100,7 @@ export const openBox = async (boxId, openBoxFee) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(addressSaturnBox, abiSaturnBox, signer);
-    await contract.openBox(boxId, { value: ethers.utils.parseEther(openBoxFee) });
+    await contract.openBox(boxId, { value: openBoxFee });
     // TODO: listen event to show UX
 };
 
