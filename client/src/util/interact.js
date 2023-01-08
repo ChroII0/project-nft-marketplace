@@ -326,12 +326,91 @@ export const getMKPListedNFTs = async () => {
         - _tokenName: string - name of token (Agent)
     */
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    // const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, provider);
     let mkpListedNFTs = contract.getListedItems();
     return mkpListedNFTs;
-}
+};
 
+export const getNFTDetailByTokenId = async (tokenId) => {
+    /* args
+        - tokenId: int - tokenId you want to get detail
+    */
+    /* Response:
+        an object (_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName])
+        - _tokenURIDetail: is an array, the struct is 
+                    - tokenId: int  - this is nftId
+                    - agentId: int - this is type of Agent
+                    - isOnchain: int 1 or 0, 1 is true and 0 is false
+                    - baseRarity: int 0:common, 1:rare, 2:elite, 3:epic, 4:legendary, 5:mythical
+                    - rarity: int - is baseRarity but in the future this will be change to higher level of rarity lik epic, legendary or or something else
+                    - level: int - maximum: 500
+                    - damage: int - maximum: 1000
+                    - hp: int - maximum: 4000
+                    - evasion: int - maximum: 4000
+                    - armor: int - maximum: 1000
+                    - combo: int - maximum: 1000
+                    - precision: int - maximum: 4000
+                    - accuracy: int - maximum: 4000
+                    - counter: int - maximum: 1000
+                    - reversal: int - maximum: 1000
+                    - lock: int - maximum: 1000
+                    - disarm: int - maximum: 1000
+                    - speed: int - maximum: 1000
+        - _tokenId: int  - this is nftId
+        - _seller: string - this is the address of the seller who own this token and want to sell it
+        - _owner: string - this is the address of the owner (in case of selling, the owner is the contract)
+        - _price: int price of token the seller is requesting
+        - _isSelling: bool - is listing on marketplace or not
+        - _tokenImg: string - url image of token (Agent)
+        - _tokenName: string - name of token (Agent)
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let nftDetail = contract.getItemByTokenId(tokenId);
+    return nftDetail;
+};
+
+export const getNFTDetailByTokenIds = async (tokenIds) => {
+    /* args
+        - tokenIds: array of int - list of tokenId you want to get detail
+    */
+    /* Response:
+        array of [_tokenURIDetail,_tokenId,_seller,_owner,_price,_isSelling,_tokenImg,_tokenName]
+        - _tokenURIDetail: is an array, the struct is 
+                    - tokenId: int  - this is nftId
+                    - agentId: int - this is type of Agent
+                    - isOnchain: int 1 or 0, 1 is true and 0 is false
+                    - baseRarity: int 0:common, 1:rare, 2:elite, 3:epic, 4:legendary, 5:mythical
+                    - rarity: int - is baseRarity but in the future this will be change to higher level of rarity lik epic, legendary or or something else
+                    - level: int - maximum: 500
+                    - damage: int - maximum: 1000
+                    - hp: int - maximum: 4000
+                    - evasion: int - maximum: 4000
+                    - armor: int - maximum: 1000
+                    - combo: int - maximum: 1000
+                    - precision: int - maximum: 4000
+                    - accuracy: int - maximum: 4000
+                    - counter: int - maximum: 1000
+                    - reversal: int - maximum: 1000
+                    - lock: int - maximum: 1000
+                    - disarm: int - maximum: 1000
+                    - speed: int - maximum: 1000
+        - _tokenId: int  - this is nftId
+        - _seller: string - this is the address of the seller who own this token and want to sell it
+        - _owner: string - this is the address of the owner (in case of selling, the owner is the contract)
+        - _price: int price of token the seller is requesting
+        - _isSelling: bool - is listing on marketplace or not
+        - _tokenImg: string - url image of token (Agent)
+        - _tokenName: string - name of token (Agent)
+    */
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
+    let nftsDetail = contract.getItemByTokenIds(tokenIds);
+    return nftsDetail;
+};
 
 
 
