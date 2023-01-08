@@ -1,7 +1,7 @@
 // import { useEffect } from "react";
 import { useState } from "react";
 import ListBoxs from "./ListBoxs";
-import { getCatalog, purchaseBox } from "../util/interact";
+import { canOpenBox, getCatalog, purchaseBox } from "../util/interact";
 import { useEffect } from "react";
 import { ethers } from "ethers";
 import { formatRes } from "../util/func";
@@ -20,7 +20,6 @@ function NFTCase() {
         fetchCataLog();
     }, []);
     const clickBuy = async (boxType) => {
-        // console.log(boxType, ethers.utils.formatUnits(listItem[boxType-1]._price, "wei"));
         await purchaseBox(boxType, ethers.utils.formatUnits(listItem[boxType-1]._price, "wei"));
     };
     return (

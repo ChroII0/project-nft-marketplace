@@ -43,6 +43,7 @@ function ListBoxs(props) {
                                         type={boxType[item._box_type - 1]}
                                         img={item._imgURI}
                                         id={item._id}
+                                        target={item._targetBox}
                                         open={props.clickOpen}
                                         myNFT={props.myNFT}
                                     />

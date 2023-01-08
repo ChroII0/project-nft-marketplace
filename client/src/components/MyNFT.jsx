@@ -5,7 +5,7 @@ import { getBoxs, getMyNFTs, getOpenBoxPrice, openBox } from "../util/interact";
 import ListCards from "./ListCards";
 import ListBoxs from "./ListBoxs";
 import { formatRes } from "../util/func";
-
+import { canOpenBox } from "../util/interact";
 
 
 function MyNFT() {
@@ -40,9 +40,13 @@ function MyNFT() {
         fetchMyNFTs();
     }, []);
 
-    const clickOpen = async (id) => {
+    const clickOpen = async (id, targetBox) => {
         const openBoxFee = await getOpenBoxPrice();
-        await openBox(id, ethers.utils.formatUnits(openBoxFee, "wei"));
+        const canOpen = await canOpenBox(targetBox);
+        if (canOpen)
+        {
+            await openBox(id, ethers.utils.formatUnits(openBoxFee, "wei"));
+        }
     }
 
     return (

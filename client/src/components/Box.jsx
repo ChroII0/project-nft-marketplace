@@ -27,7 +27,7 @@ function Box(props) {
                                 <p className="card-text"><strong>TokenId:</strong> {props.id}</p>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div className="btn-group">
-                                        <button className="btn btn-sm btn-outline-primary" onClick={() => props.open(props.id)}><strong>Open</strong></button>
+                                        <button className="btn btn-sm btn-outline-primary" onClick={() => props.open(props.id, props.target)}><strong>Open</strong></button>
                                     </div>
                                 </div>
                             </>
