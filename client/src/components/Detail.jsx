@@ -5,6 +5,7 @@ import { getNFTDetailByTokenId } from "../util/interact";
 import { formatRes } from "../util/func";
 import { ethers } from "ethers";
 import Cookies from 'js-cookie';
+import { purchaseNFT } from "../util/interact";
 
 
 function Detail() {
@@ -64,10 +65,8 @@ function Detail() {
         async function fetchNFT() {
             const res = await getNFTDetailByTokenId(parseInt(itemId));
             setItem(formatRes([res])[0]);
-            console.log(res);
         }
         fetchNFT();
-        console.log(item);
     }, []);
     const key_agent = [
         "level",
@@ -87,9 +86,9 @@ function Detail() {
     const max_values_agent = [
         500, 1000, 4000, 4000, 1000, 1000, 4000, 4000, 1000, 1000, 1000, 1000, 1000
     ];
-    const clickBuy = () => {
-
-    }
+    const clickBuy = async () => {
+        await purchaseNFT(item._tokenId, item._price);
+    };
 
     return (
         <div className="col-md-12 pt-5 px-3">
