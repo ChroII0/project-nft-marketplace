@@ -1,13 +1,14 @@
 // import { useEffect } from "react";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { getBoxs, getMyNFTs, getOpenBoxPrice, openBox } from "../util/interact";
+import { doRequestOffChain, doRequestOnChain, getBoxs, getMyNFTs, getOffChainPrice, getOnChainPrice, getOpenBoxPrice, openBox } from "../util/interact";
 import ListCards from "./ListCards";
 import ListBoxs from "./ListBoxs";
 import { formatRes } from "../util/func";
 import { canOpenBox } from "../util/interact";
 import { getListingPrice } from "../util/interact";
 import { sellNFT } from "../util/interact";
+import { isOnChain } from "../util/interact";
 
 
 function MyNFT() {
@@ -19,12 +20,12 @@ function MyNFT() {
         _seller: "seller_address",
         _owner: "onwer_address",
         _price: 1000,
-        _isSelling: true,
+        _isSelling: false,
         _tokenURIDetail: [
             {
                 tokenId: 0,
                 agentId: 0,
-                isOnchain: 0,
+                isOnchain: 1,
                 baseRarity: 0,
                 rarity: 0,
                 level: 0,
@@ -80,7 +81,21 @@ function MyNFT() {
         await sellNFT(id,newExpectPrice, ListingPrice);
 
     }
+    console.log(listNFTs);
+    const clickOnOrOffChain = async (id) =>{
+        const isOnchain = await isOnChain(id);
+        if (isOnchain)
+        {
+            const priceOffChain = await getOffChainPrice();
+            await doRequestOffChain(id, priceOffChain)
+        }
+        else
+        {
+            const priceOnChain = await getOnChainPrice();
+            await doRequestOnChain(id, priceOnChain);
 
+        }
+    }
     return (
         <>
             <ListCards
@@ -88,6 +103,7 @@ function MyNFT() {
                 myNFT={true}
                 title={"My NFTs"}
                 sellNFT={clickSellNFT}
+                onOrOffChain={clickOnOrOffChain}
             />
             <ListBoxs
                 listItem={listBoxs}

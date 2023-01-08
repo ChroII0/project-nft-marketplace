@@ -143,7 +143,7 @@ export const doRequestOnChain = async (nftId, onChainFee) => {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
-    await contract.doRequestOnChain(nftId, { value: ethers.utils.parseEther(onChainFee) });
+    await contract.doRequestOnChain(nftId, { value: onChainFee });
     // Listen event to show UX
     listenToOnChain({ addressExpect: address });
 };
@@ -214,7 +214,7 @@ export const doRequestOffChain = async (nftId, offChainFee) => {
     const signer = provider.getSigner();
     const address = await signer.getAddress();
     const contract = new ethers.Contract(addressSaturnMKP, abiSaturnMKP, signer);
-    await contract.offChain(nftId, { value: ethers.utils.parseEther(offChainFee) })
+    await contract.offChain(nftId, { value: offChainFee })
     // Listen event to show UX
     listenToOffChain({ addressExpect: address });
 };
