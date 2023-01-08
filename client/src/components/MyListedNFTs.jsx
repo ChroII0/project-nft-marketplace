@@ -50,8 +50,7 @@ function MyListedNFTs() {
     }, []);
     const clickWithDraw = async (id) => {
         const withDrawFee = await getWithdrawPrice();
-        console.log(withDrawFee);
-        // await withdrawNFT(id, withDrawFee);
+        await withdrawNFT(id, withDrawFee);
     };
 
     return(
