@@ -509,3 +509,16 @@ export const listenDoPurchaseBox = async (addressExpect = null) => {
         }
     })
 }
+
+
+//////// HELPER FUNCTIONS //////////////////////////////////
+
+
+export const canOpenBox = async (targetBlock) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const blockNumber = await provider.getBlockNumber();
+    if (targetBlock < blockNumber) {
+        return true;
+    }
+    return false;
+}
