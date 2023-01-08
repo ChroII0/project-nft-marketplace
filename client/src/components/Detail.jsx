@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getNFTDetailByTokenId } from "../util/interact";
 import { formatRes } from "../util/func";
 import { ethers } from "ethers";
+import Cookies from 'js-cookie';
 
 
 function Detail() {
@@ -14,7 +15,7 @@ function Detail() {
         _tokenId: 1,
         _tokenImg: "http://www.w3.org/2000/svg",
         _seller: "seller_address",
-        _owner: "onwer_address",
+        _owner: "",
         _price: 1000,
         _isSelling: true,
         _tokenURIDetail: [
@@ -121,7 +122,7 @@ function Detail() {
                         )
                     })
                     }
-                    {(
+                    {Cookies.get("walletAddress") !== item._owner.toLowerCase() && (
                         <>
                         <button type="button" className="btn btn-primary mt-3" onClick={clickBuy}>Buy: {ethers.utils.formatUnits(item._price, "gwei")} gwei</button>
                         </>

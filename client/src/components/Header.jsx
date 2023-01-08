@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { connectWallet, getCurrentWalletConnected } from "../util/interact";
+import Cookies from 'js-cookie';
 
 function Header() {
     const [walletAddress, setWallet] = useState("");
     const [balance, setBalance] = useState(null);
     const [status, setStatus] = useState(false);
-
     const connect_wallet = async () => {
         const status = await connectWallet();
         setStatus(status);
@@ -22,6 +22,7 @@ function Header() {
             const { address, balance } = await getCurrentWalletConnected();
             setWallet(address);
             setBalance(balance);
+            Cookies.set("walletAddress", address);
         }
         fetchWallet();
     },[]);
